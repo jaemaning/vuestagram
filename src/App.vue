@@ -1,15 +1,15 @@
 <template>
   <div class="header">
-    <ul class="header-button-left">
+    <ul class="header-button-left" v-if="step==1 | step==2">
       <li @click="step=0">Cancel</li>
     </ul>
-    <ul class="header-button-right">
-      <li>Next</li>
+    <ul class="header-button-right" v-if="step==1">
+      <li @click="step++">Next</li>
     </ul>
     <img src="./assets/logo.png" class="logo" @click="step=0"/>
   </div>
 
-  <ContainerVue :data="data" :step="step"/>
+  <ContainerVue :data="data" :step="step" :urllink="urllink"/>
 
   <div class="align-center" v-if="step==0">
     <div v-if="Lastdata">마지막 데이터 입니다.</div>
@@ -17,16 +17,10 @@
     <button @click="more" class="blue-btn">더보기</button>
   </div>
 
-  <div class="footer footer-parent">
-    <ul class="footer-child">
-      <button class="footer-addpic-btn" @click="step=2">게시물 추가</button>
-    </ul>
-    <ul class="footer-button-plus footer-child">
+  <div class="footer">
+    <ul class="footer-button-plus">
       <input @change="upload" accept="image/*" type="file" id="file" class="inputfile" />
       <label for="file" class="input-plus">+</label>
-    </ul>
-    <ul class="footer-child">
-      <button class="footer-addpic-btn" @click="step=1">사진 보정</button>
     </ul>
  </div>
   
@@ -45,6 +39,7 @@ export default {
       data : data,
       count : 0,
       Lastdata : false,
+      urllink : ""
     }
   },
   components: {
@@ -67,8 +62,8 @@ export default {
     upload(e) {
       let file = e.target.files;
       this.step++
-      let url = URL.createObjectURL(file[0])
-      console.log(url)
+      this.urllink = URL.createObjectURL(file[0])
+      console.log(this.urllink)
     }
   },
 }
@@ -167,21 +162,4 @@ ul {
   cursor: pointer;
 }
 
-.footer-parent{
-  display: flex;
-}
-
-.footer-child{
-  flex:1;
-}
-
-.footer-addpic-btn{
-  padding:10px;
-  border-radius: 5px;
-  border: solid 1px #4193ef;
-  background-color: #4193ef;
-  color: #ffffff;
-  font-size: 15px;
-  cursor: pointer;
-}
 </style>

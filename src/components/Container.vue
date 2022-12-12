@@ -1,6 +1,6 @@
 <template>
   <div>
-    
+
     <!-- 게시물페이지 -->
     <div v-if="step==0">
       <PostVue v-for="(a,i) in data" :key="i" :a="a"/>
@@ -8,7 +8,7 @@
 
     <!-- 필터선택페이지 -->
     <div v-if="step==1">
-      <div class="upload-image"></div>
+      <div class="upload-image" :style="{'backgroundImage': `url( ${urllink} )`}"></div>
       <div class="filters">
         <div class="filter-1"></div>
         <div class="filter-1"></div>
@@ -20,7 +20,7 @@
 
     <!-- 글작성페이지 -->
     <div v-if="step==2">
-      <div class="upload-image"></div>
+      <div class="upload-image" :style="{'backgroundImage': `url( ${urllink} )`}"></div>
       <div class="write">
         <textarea class="write-box">write!</textarea>
       </div>
@@ -41,6 +41,7 @@ export default {
   props : {
     data : Array,
     step : Number,
+    urllink : String,
   }
 }
 </script>
