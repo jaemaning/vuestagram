@@ -1,26 +1,32 @@
 <template>
   <div class="header">
     <ul class="header-button-left">
-      <li>Cancel</li>
+      <li @click="step=0">Cancel</li>
     </ul>
     <ul class="header-button-right">
       <li>Next</li>
     </ul>
-    <img src="./assets/logo.png" class="logo" />
+    <img src="./assets/logo.png" class="logo" @click="step=0"/>
   </div>
 
-  <ContainerVue :data="data" />
+  <ContainerVue :data="data" :step="step"/>
 
-  <div class="align-center">
+  <div class="align-center" v-if="step==0">
     <div v-if="Lastdata">마지막 데이터 입니다.</div>
     <br/>
     <button @click="more" class="blue-btn">더보기</button>
   </div>
 
-  <div class="footer">
-    <ul class="footer-button-plus">
-      <input type="file" id="file" class="inputfile" />
+  <div class="footer footer-parent">
+    <ul class="footer-child">
+      <button class="footer-addpic-btn" @click="step=2">게시물 추가</button>
+    </ul>
+    <ul class="footer-button-plus footer-child">
+      <input @change="upload" accept="image/*" type="file" id="file" class="inputfile" />
       <label for="file" class="input-plus">+</label>
+    </ul>
+    <ul class="footer-child">
+      <button class="footer-addpic-btn" @click="step=1">사진 보정</button>
     </ul>
  </div>
   
@@ -35,9 +41,10 @@ export default {
   name: 'App',
   data () {
     return {
+      step : 0,
       data : data,
       count : 0,
-      Lastdata : false
+      Lastdata : false,
     }
   },
   components: {
@@ -56,6 +63,12 @@ export default {
         console.log(err)
         this.Lastdata = true
       })
+    },
+    upload(e) {
+      let file = e.target.files;
+      this.step++
+      let url = URL.createObjectURL(file[0])
+      console.log(url)
     }
   },
 }
@@ -107,6 +120,7 @@ ul {
   bottom: 0;
   padding-bottom: 10px;
   background-color: white;
+  text-align: center;
 }
 .footer-button-plus {
   width: 80px;
@@ -150,6 +164,24 @@ ul {
   padding : 3px;
   border: solid 1px blue ;
   border-radius: 7%;
+  cursor: pointer;
+}
+
+.footer-parent{
+  display: flex;
+}
+
+.footer-child{
+  flex:1;
+}
+
+.footer-addpic-btn{
+  padding:10px;
+  border-radius: 5px;
+  border: solid 1px #4193ef;
+  background-color: #4193ef;
+  color: #ffffff;
+  font-size: 15px;
   cursor: pointer;
 }
 </style>
