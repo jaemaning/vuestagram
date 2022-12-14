@@ -3,13 +3,14 @@
     <ul class="header-button-left" v-if="step==1 | step==2">
       <li @click="step=0">Cancel</li>
     </ul>
-    <ul class="header-button-right" v-if="step==1">
-      <li @click="step++">Next</li>
+    <ul class="header-button-right">
+      <li v-if="step==1" @click="step++">Next</li>
+      <li v-if="step==2" @click="publish">발행</li>
     </ul>
     <img src="./assets/logo.png" class="logo" @click="step=0"/>
   </div>
 
-  <ContainerVue :data="data" :step="step" :urllink="urllink"/>
+  <ContainerVue :data="data" :step="step" :urllink="urllink" @contentEvent="mycontent=$event"/>
 
   <div class="align-center" v-if="step==0">
     <div v-if="Lastdata">마지막 데이터 입니다.</div>
@@ -39,7 +40,8 @@ export default {
       data : data,
       count : 0,
       Lastdata : false,
-      urllink : ""
+      urllink : "",
+      mycontent : "asdf"
     }
   },
   components: {
@@ -64,6 +66,20 @@ export default {
       this.step++
       this.urllink = URL.createObjectURL(file[0])
       console.log(this.urllink)
+    },
+    publish() {
+      let 내게시물 = {
+        name: "Kim Jaeman",
+        userImage: "https://placeimg.com/100/100/arch",
+        postImage: this.urllink,
+        likes: 36,
+        date: "Dec 14",
+        liked: false,
+        content: this.mycontent,
+        filter: "perpetua"
+      };
+      this.data.unshift(내게시물);
+      this.step = 0;
     }
   },
 }
