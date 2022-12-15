@@ -10,7 +10,7 @@
     <img src="./assets/logo.png" class="logo" @click="step=0"/>
   </div>
 
-  <ContainerVue :data="data" :step="step" :urllink="urllink" @contentEvent="mycontent=$event"/>
+  <ContainerVue :data="data" :step="step" :urllink="urllink" :myfilter="myfilter" @contentEvent="mycontent=$event"/>
 
   <div class="align-center" v-if="step==0">
     <div v-if="Lastdata">마지막 데이터 입니다.</div>
@@ -41,7 +41,8 @@ export default {
       count : 0,
       Lastdata : false,
       urllink : "",
-      mycontent : "asdf"
+      mycontent : "",
+      myfilter : "",
     }
   },
   components: {
@@ -65,23 +66,27 @@ export default {
       let file = e.target.files;
       this.step++
       this.urllink = URL.createObjectURL(file[0])
-      console.log(this.urllink)
     },
     publish() {
       let 내게시물 = {
         name: "Kim Jaeman",
-        userImage: "https://placeimg.com/100/100/arch",
+        userImage: "https://placeimg.com/100/100/animals",
         postImage: this.urllink,
         likes: 36,
         date: "Dec 14",
         liked: false,
         content: this.mycontent,
-        filter: "perpetua"
+        filter: this.myfilter
       };
       this.data.unshift(내게시물);
       this.step = 0;
     }
   },
+  mounted(){
+    this.emitter.on('filterOn', (e)=>{
+      this.myfilter = e
+    })
+  }
 }
 </script>
 

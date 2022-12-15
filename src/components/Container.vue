@@ -8,7 +8,7 @@
 
     <!-- 필터선택페이지 -->
     <div v-if="step==1">
-      <div class="upload-image" :style="{'backgroundImage': `url( ${urllink} )`}"></div>
+      <div class="upload-image" :class="myfilter" :style="{'backgroundImage': `url( ${urllink} )`}"></div>
       <div class="filters">
         <FilterBoxVue :urllink="urllink" v-for="(filter,i) in filtername" :key="i" :filter="filter">
           {{filter}}
@@ -18,7 +18,7 @@
 
     <!-- 글작성페이지 -->
     <div v-if="step==2">
-      <div class="upload-image" :style="{'backgroundImage': `url( ${urllink} )`}"></div>
+      <div class="upload-image" :class="myfilter" :style="{'backgroundImage': `url( ${urllink} )`}"></div>
       <div class="write">
         <textarea class="write-box" @input="$emit('contentEvent',$event.target.value)" placeholder="write here!"></textarea>
       </div>
@@ -43,10 +43,11 @@ export default {
     data : Array,
     step : Number,
     urllink : String,
+    myfilter : String,
   },
   data () {
     return {
-      filtername : filtername
+      filtername : filtername,
     }
   },
 }

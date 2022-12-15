@@ -4,7 +4,7 @@
             <div class="profile" v-bind:style="{'backgroundImage' : `url( ${a.userImage} )` }"></div>
             <span class="profile-name">{{a.name}}</span>
         </div>
-        <div class="post-body" v-bind:style="{'backgroundImage' : `url( ${a.postImage} )` }"></div>
+        <div class="post-body" :class="a.filter" v-bind:style="{'backgroundImage' : `url( ${a.postImage} )` }"></div>
         <div class="post-content">
             <p>{{a.likes}}</p>
             <p><strong>{{a.name}}</strong> | {{a.content}}</p>

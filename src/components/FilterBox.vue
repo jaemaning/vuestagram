@@ -1,5 +1,5 @@
 <template>
-  <div class="filter-item" :class="filter" :style="{'backgroundImage' : `url(${urllink})` }">
+  <div class="filter-item" :class="filter" @click="filterOn" :style="{'backgroundImage' : `url(${urllink})` }">
     <slot></slot>
   </div>
 </template>
@@ -10,6 +10,11 @@ export default {
     props : {
         urllink : String,
         filter : String
+    },
+    methods : {
+      filterOn () {
+        this.emitter.emit('filterOn' , this.filter)
+      }
     }
 }
 </script>
@@ -24,5 +29,6 @@ export default {
   color : white;
   background-size: cover;
   background-position : center;
+  cursor : pointer;
 }
 </style>
