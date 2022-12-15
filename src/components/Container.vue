@@ -10,11 +10,9 @@
     <div v-if="step==1">
       <div class="upload-image" :style="{'backgroundImage': `url( ${urllink} )`}"></div>
       <div class="filters">
-        <div class="filter-1"></div>
-        <div class="filter-1"></div>
-        <div class="filter-1"></div>
-        <div class="filter-1"></div>
-        <div class="filter-1"></div>
+        <FilterBoxVue :urllink="urllink" v-for="(filter,i) in filtername" :key="i" :filter="filter">
+          {{filter}}
+        </FilterBoxVue>
       </div>
     </div>
 
@@ -31,18 +29,26 @@
 
 <script>
 import Post from './Post.vue'
+import FilterBox from './FilterBox.vue'
+import filtername from '../assets/filtername'
 
 
 export default {
   name : 'Container',
   components : {
-    PostVue : Post
+    PostVue : Post,
+    FilterBoxVue : FilterBox
   },
   props : {
     data : Array,
     step : Number,
     urllink : String,
-  }
+  },
+  data () {
+    return {
+      filtername : filtername
+    }
+  },
 }
 </script>
 
