@@ -4,9 +4,9 @@
             <div class="profile" v-bind:style="{'backgroundImage' : `url( ${a.userImage} )` }"></div>
             <span class="profile-name">{{a.name}}</span>
         </div>
-        <div class="post-body" :class="a.filter" v-bind:style="{'backgroundImage' : `url( ${a.postImage} )` }"></div>
+        <div @click="$store.commit('likebtn')" class="post-body" :class="a.filter" v-bind:style="{'backgroundImage' : `url( ${a.postImage} )` }"></div>
         <div class="post-content">
-            <p>{{a.likes}}</p>
+            <p>좋아요 {{$store.state.likes}}</p>
             <p><strong>{{a.name}}</strong> | {{a.content}}</p>
             <p class="date">{{a.date}}</p>
         </div>
