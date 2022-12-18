@@ -10,12 +10,14 @@
     <img src="./assets/logo.png" class="logo" @click="step=0"/>
   </div>
 
+  <p>{{$store.state.more}}</p>
+
   <ContainerVue :data="data" :step="step" :urllink="urllink" :myfilter="myfilter" @contentEvent="mycontent=$event"/>
 
   <div class="align-center" v-if="step==0">
     <div v-if="Lastdata">마지막 데이터 입니다.</div>
     <br/>
-    <button @click="more" class="blue-btn">더보기</button>
+    <button @click="$store.dispatch('getData')" class="blue-btn">더보기</button>
   </div>
 
   <div class="footer">
