@@ -9,15 +9,13 @@
     </ul>
     <img src="./assets/logo.png" class="logo" @click="step=0"/>
   </div>
-
-  <p>{{$store.state.more}}</p>
-
+  
   <ContainerVue :data="data" :step="step" :urllink="urllink" :myfilter="myfilter" @contentEvent="mycontent=$event"/>
 
   <div class="align-center" v-if="step==0">
     <div v-if="Lastdata">마지막 데이터 입니다.</div>
     <br/>
-    <button @click="$store.dispatch('getData')" class="blue-btn">더보기</button>
+    <button @click="more" class="blue-btn">더보기</button>
   </div>
 
   <div class="footer">
@@ -33,6 +31,7 @@
 import Container from './components/Container.vue';
 import data from './assets/vuestargramdata';
 import axios from 'axios'
+import {mapMutations, mapState} from 'vuex'
 
 export default {
   name: 'App',
@@ -41,16 +40,20 @@ export default {
       step : 0,
       data : data,
       count : 0,
-      Lastdata : false,
       urllink : "",
       mycontent : "",
       myfilter : "",
+      Lastdata : false,
     }
   },
+
   components: {
     ContainerVue : Container
   },
+
   methods : {
+    ...mapMutations([]), // vuex mutations 를 쉽게 가져다 쓸 수 있음.
+
     more() {
       axios.get(`https://codingapple1.github.io/vue/more${this.count}.json`)
       .then((결과)=>{
@@ -84,6 +87,11 @@ export default {
       this.step = 0;
     }
   },
+
+  computed : {
+    ...mapState([]), // state 를 가져와서 간단하게 쓸수있음
+  }, // 웹페이지 처음 로드 될때 한번만 함수 실행 후 값을 기억 (재렌더링 되어도 실행 안함.) 계산결과저장용 함수들
+
   mounted(){
     this.emitter.on('filterOn', (e)=>{
       this.myfilter = e
