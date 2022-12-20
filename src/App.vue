@@ -24,20 +24,22 @@
       <label for="file" class="input-plus">+</label>
     </ul>
  </div>
+
   
 </template>
 
 <script>
 import Container from './components/Container.vue';
 import data from './assets/vuestargramdata';
-import axios from 'axios'
-import {mapMutations, mapState} from 'vuex'
+import axios from 'axios' ;
+import {mapMutations, mapState} from 'vuex' ;
+
 
 export default {
   name: 'App',
   data () {
     return {
-      step : 0,
+      step : 3,
       data : data,
       count : 0,
       urllink : "",
@@ -48,7 +50,7 @@ export default {
   },
 
   components: {
-    ContainerVue : Container
+    ContainerVue : Container,
   },
 
   methods : {

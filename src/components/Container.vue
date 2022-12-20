@@ -24,6 +24,10 @@
       </div>
     </div>
   </div>
+
+  <div v-if="step==3">
+    <Mypage/>
+  </div>
     
 </template>
 
@@ -31,13 +35,15 @@
 import Post from './Post.vue'
 import FilterBox from './FilterBox.vue'
 import filtername from '../assets/filtername'
+import Mypage from './Mypage.vue'
 
 
 export default {
   name : 'Container',
   components : {
     PostVue : Post,
-    FilterBoxVue : FilterBox
+    FilterBoxVue : FilterBox,
+    Mypage : Mypage,
   },
   props : {
     data : Array,
