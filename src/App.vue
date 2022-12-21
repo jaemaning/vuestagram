@@ -8,6 +8,12 @@
       <li v-if="step==2" @click="publish">발행</li>
     </ul>
     <img src="./assets/logo.png" class="logo" @click="step=0"/>
+    <ul class="header-button-left" v-if="step==0 | step==3" @click="step=0">
+      <li>Home</li>
+    </ul>
+    <ul class="header-button-right">
+      <li v-if="step==0" @click="step=3">Followers</li>
+    </ul>
   </div>
   
   <ContainerVue :data="data" :step="step" :urllink="urllink" :myfilter="myfilter" @contentEvent="mycontent=$event"/>
@@ -39,7 +45,7 @@ export default {
   name: 'App',
   data () {
     return {
-      step : 3,
+      step : 0,
       data : data,
       count : 0,
       urllink : "",
